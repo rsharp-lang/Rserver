@@ -45,6 +45,7 @@
 Imports System.Threading
 Imports Flute.Http
 Imports Flute.Http.Core
+Imports Flute.Http.Core.Message
 Imports Microsoft.VisualBasic.CommandLine.Reflection
 Imports Microsoft.VisualBasic.Scripting.MetaData
 Imports SMRUCC.Rsharp.Runtime
@@ -56,8 +57,19 @@ Imports SMRUCC.Rsharp.Runtime.Interop
 Public Module HttpServer
 
     <ExportAPI("http_socket")>
-    Public Function createDriver() As HttpDriver
-        Return New HttpDriver
+    Public Function createDriver(Optional silent As Boolean = True) As HttpDriver
+        Return New HttpDriver(silent)
+    End Function
+
+    <ExportAPI("getHeaders")>
+    Public Function getHeaders(req As HttpRequest) As list
+        Return New list(RType.GetRSharpType(GetType(String))) With {
+            .slots = req.HttpHeaders _
+                .ToDictionary(Function(h) h.Key,
+                              Function(h)
+                                  Return CObj(h.Value)
+                              End Function)
+        }
     End Function
 
     ''' <summary>
