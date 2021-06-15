@@ -9,12 +9,12 @@ const httpPort as integer = ?"--listen" || 80;
 
 const handleHttpGet as function(req, response) {
 	print(req);
-	writeLines("hello!", con = response);
+	writeLines("hello http get!", con = response);
 }
 
 const handleHttpPost as function(req, response) {
 	print(req);
-	writeLines("hello!", con = response);
+	writeLines("hello http post!", con = response);
 }
 
 http::http_socket()
