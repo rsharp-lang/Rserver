@@ -42,15 +42,39 @@
 
 #If netcore5 = 0 Then
 
+Imports Flute.Http
 Imports Flute.Http.Core
 Imports Microsoft.VisualBasic.CommandLine.Reflection
 Imports Microsoft.VisualBasic.Scripting.MetaData
 Imports SMRUCC.Rsharp.Runtime
+Imports SMRUCC.Rsharp.Runtime.Internal.Object
+Imports SMRUCC.Rsharp.Runtime.Interop
 
-<Package("http.socket", Category:=APICategories.UtilityTools)>
+<Package("http", Category:=APICategories.UtilityTools)>
 Public Module HttpServer
 
-    <ExportAPI("serve")>
+    <ExportAPI("http_socket")>
+    Public Function createDriver() As HttpDriver
+        Return New HttpDriver
+    End Function
+
+    ''' <summary>
+    ''' add custom http response headers
+    ''' </summary>
+    ''' <param name="driver"></param>
+    ''' <param name="headers"></param>
+    ''' <param name="env"></param>
+    ''' <returns></returns>
+    <ExportAPI("headers")>
+    Public Function customResponseHeader(driver As HttpDriver, <RListObjectArgument> headers As list, Optional env As Environment = Nothing) As HttpDriver
+        For Each header As KeyValuePair(Of String, String) In headers.AsGeneric(Of String)(env)
+            Call driver.AddResponseHeader(header.Key, header.Value)
+        Next
+
+        Return driver
+    End Function
+
+    <ExportAPI("listen")>
     Public Function serve(content$, Optional port% = -1, Optional env As Environment = Nothing) As HttpSocket
         Dim httpPort As Integer = If(port <= 0, Rnd() * 30000, port)
         Dim socket As New HttpSocket(
