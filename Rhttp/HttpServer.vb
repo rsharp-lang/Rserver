@@ -48,6 +48,7 @@ Imports Flute.Http.Core
 Imports Microsoft.VisualBasic.CommandLine.Reflection
 Imports Microsoft.VisualBasic.Scripting.MetaData
 Imports SMRUCC.Rsharp.Runtime
+Imports SMRUCC.Rsharp.Runtime.Components.Interface
 Imports SMRUCC.Rsharp.Runtime.Internal.Object
 Imports SMRUCC.Rsharp.Runtime.Interop
 
@@ -92,6 +93,11 @@ Public Module HttpServer
         End If
 
         Return socket.Run()
+    End Function
+
+    <ExportAPI("httpMethod")>
+    Public Function httpMethod(method As String, process As RFunction, Optional env As Environment = Nothing) As HttpDriver
+
     End Function
 End Module
 #End If

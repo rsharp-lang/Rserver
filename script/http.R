@@ -7,16 +7,22 @@ imports "http" from "Rhttp";
 [@info "the http port for listen, 80 port number is used by default."]
 const httpPort as integer = ?"--listen" || 80;
 
+const handleHttpGet as function(req, response) {
+	print(req);
+	writeLines("hello!", con = response);
+}
+
+const handleHttpPost as function(req, response) {
+	print(req);
+	writeLines("hello!", con = response);
+}
+
 http::http_socket()
 |> headers(
 	"X-Powered-By" = "R# server"
 )
-|> httpGet(function(req, response) {
-
-})
-|> httpPost(function(req, response) {
-
-})
-|> http("PUT", [req, response] => writeLines("HTTP PUT test success!", con = response))
+|> httpMethod("GET", handleHttpGet)
+|> httpMethod("POST", handleHttpPost)
+|> httpMethod("PUT", [req, response] => writeLines("HTTP PUT test success!", con = response))
 |> listen(port = httpPort)
 ;
