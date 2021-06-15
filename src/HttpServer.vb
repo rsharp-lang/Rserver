@@ -47,6 +47,7 @@ Imports Flute.Http
 Imports Flute.Http.Core
 Imports Flute.Http.Core.Message
 Imports Microsoft.VisualBasic.CommandLine.Reflection
+Imports Microsoft.VisualBasic.Net.Http
 Imports Microsoft.VisualBasic.Scripting.MetaData
 Imports SMRUCC.Rsharp.Runtime
 Imports SMRUCC.Rsharp.Runtime.Components.Interface
@@ -69,6 +70,30 @@ Public Module HttpServer
                               Function(h)
                                   Return CObj(h.Value)
                               End Function)
+        }
+    End Function
+
+    <ExportAPI("getUrl")>
+    Public Function getUrl(req As HttpRequest) As list
+        Dim url As URL = req.URL
+        Dim queryData As New list(RType.GetRSharpType(GetType(String))) With {
+            .slots = url.query _
+                .ToDictionary(Function(q) q.Key,
+                              Function(q)
+                                  Return CObj(q.Value)
+                              End Function)
+        }
+
+        Return New list With {
+            .slots = New Dictionary(Of String, Object) From {
+                {"url", url.ToString},
+                {"path", url.path},
+                {"hostName", url.hostName},
+                {"hash", url.hashcode},
+                {"query", queryData},
+                {"port", url.port},
+                {"protocol", url.protocol}
+            }
         }
     End Function
 
