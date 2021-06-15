@@ -96,8 +96,14 @@ Public Module HttpServer
     End Function
 
     <ExportAPI("httpMethod")>
-    Public Function httpMethod(method As String, process As RFunction, Optional env As Environment = Nothing) As HttpDriver
+    Public Function httpMethod(driver As HttpDriver, method As String, process As RFunction, Optional env As Environment = Nothing) As HttpDriver
+        Call driver.HttpMethod(
+            method:=method.ToUpper,
+            handler:=Sub(req, response)
+                         Call process.Invoke({req, response}, env)
+                     End Sub)
 
+        Return driver
     End Function
 End Module
 #End If
