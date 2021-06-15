@@ -132,6 +132,11 @@ Public Module HttpServer
         Return socket.Run()
     End Function
 
+    <ExportAPI("httpError")>
+    Public Sub httpError(write As HttpResponse, code As Integer, message As String)
+        Call write.WriteError(code, message)
+    End Sub
+
     <ExportAPI("httpMethod")>
     Public Function httpMethod(driver As HttpDriver, method As String, process As RFunction, Optional env As Environment = Nothing) As HttpDriver
         Call driver.HttpMethod(

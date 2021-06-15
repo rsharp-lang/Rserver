@@ -7,10 +7,23 @@ imports "http" from "Rhttp";
 [@info "the http port for listen, 80 port number is used by default."]
 const httpPort as integer = ?"--listen" || 80;
 
+const router as function(url) {
+	`${dirname(@script)}/../web.R/${url$path}.R`;
+}
+
 const handleHttpGet as function(req, response) {
-	print(getUrl(req));
+	const R as string = router(getUrl(req));
+
+	str(getUrl(req));
 	str(getHeaders(req));
-	writeLines("hello http get!", con = response);
+
+	if (file.exists(R)) {
+		writeLines(source(R), con = response);
+	} else {
+		response 
+		|> httpError(404, `the required Rscript file is not found on filesystem location: '${R}'!`)
+		;
+	}	
 }
 
 const handleHttpPost as function(req, response) {
