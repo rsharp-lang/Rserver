@@ -42,6 +42,7 @@
 
 #If netcore5 = 0 Then
 
+Imports System.Threading
 Imports Flute.Http
 Imports Flute.Http.Core
 Imports Microsoft.VisualBasic.CommandLine.Reflection
@@ -75,18 +76,22 @@ Public Module HttpServer
     End Function
 
     <ExportAPI("listen")>
-    Public Function serve(driver As HttpDriver, Optional port% = -1, Optional env As Environment = Nothing) As HttpSocket
+    Public Function serve(driver As HttpDriver, Optional port% = -1, Optional env As Environment = Nothing) As Integer
         Dim httpPort As Integer = If(port <= 0, Rnd() * 30000, port)
         Dim socket As HttpSocket = driver.GetSocket(httpPort)
         Dim localUrl$ = $"http://localhost:{httpPort}/"
 
-        Call socket.DriverRun
-
         If env.globalEnvironment.debugMode Then
-            Call Process.Start(localUrl)
+            Call New Thread(
+                Sub()
+                    Call Thread.Sleep(3000)
+                    Call Process.Start(localUrl)
+                End Sub) _
+ _
+            .Start()
         End If
 
-        Return socket
+        Return socket.Run()
     End Function
 End Module
 #End If
