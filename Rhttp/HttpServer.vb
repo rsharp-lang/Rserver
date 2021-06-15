@@ -75,14 +75,10 @@ Public Module HttpServer
     End Function
 
     <ExportAPI("listen")>
-    Public Function serve(content$, Optional port% = -1, Optional env As Environment = Nothing) As HttpSocket
+    Public Function serve(driver As HttpDriver, Optional port% = -1, Optional env As Environment = Nothing) As HttpSocket
         Dim httpPort As Integer = If(port <= 0, Rnd() * 30000, port)
-        Dim socket As New HttpSocket(
-            app:=Sub(req, rep) Call rep.WriteHTML(content),
-            threads:=1,
-            port:=httpPort
-        )
-        Dim localUrl$ = $"http://localhost:{socket.localPort}/"
+        Dim socket As HttpSocket = driver.GetSocket(httpPort)
+        Dim localUrl$ = $"http://localhost:{httpPort}/"
 
         Call socket.DriverRun
 
