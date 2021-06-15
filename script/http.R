@@ -8,12 +8,12 @@ imports "http" from "Rhttp";
 const httpPort as integer = ?"--listen" || 80;
 
 const handleHttpGet as function(req, response) {
-	print(req);
+	str(getHeaders(req));
 	writeLines("hello http get!", con = response);
 }
 
 const handleHttpPost as function(req, response) {
-	print(req);
+	str(getHeaders(req));
 	writeLines("hello http post!", con = response);
 }
 
