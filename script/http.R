@@ -21,7 +21,7 @@ const handleHttpGet as function(req, response) {
 		writeLines(source(R), con = response);
 	} else {
 		response 
-		|> httpError(404, `the required Rscript file is not found on filesystem location: '${R}'!`)
+		|> httpError(404, `the required Rscript file is not found on filesystem location: '${ normalizePath(R) }'!`)
 		;
 	}	
 }
