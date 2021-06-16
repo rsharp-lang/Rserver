@@ -14,9 +14,13 @@ const router as function(url) {
 const handleHttpGet as function(req, response) {
 	const R as string = router(getUrl(req));
 
+	print("request from the browser client:");
 	str(getUrl(req));
+
+	print("view the request data headers:");
 	str(getHeaders(req));
 	
+	print("this is the unparsed raw text of the http header message:");
 	print(getHttpRaw(req));
 
 	if (file.exists(R)) {
@@ -44,6 +48,8 @@ const handleHttpPost as function(req, response) {
 		;
 	}	
 }
+
+cat("\n\n");
 
 http::http_socket()
 |> headers(
