@@ -8,7 +8,7 @@ imports "http" from "Rhttp";
 const httpPort as integer  = ?"--listen"  || 80;
 [@info "A directory path that contains the R script for running in this R# web server."]
 [@type "directory"]
-const webContext as string = ?"--wwwroot" || dirname(@script);
+const webContext as string = ?"--wwwroot" || `${dirname(@script)}/../web.R`;
 
 #' Route url as local R script file
 #' 
@@ -16,7 +16,7 @@ const webContext as string = ?"--wwwroot" || dirname(@script);
 #'     http request.
 #' 
 const router as function(url) {
-  `${webContext}/../web.R/${ trim(url$path, ".") }.R`;
+  `${webContext}/${ trim(url$path, ".") }.R`;
 }
 
 #' Handle http GET request
