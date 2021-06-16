@@ -57,11 +57,21 @@ Imports SMRUCC.Rsharp.Runtime.Interop
 <Package("http", Category:=APICategories.UtilityTools)>
 Public Module HttpServer
 
+    ''' <summary>
+    ''' create a http driver module
+    ''' </summary>
+    ''' <param name="silent"></param>
+    ''' <returns></returns>
     <ExportAPI("http_socket")>
     Public Function createDriver(Optional silent As Boolean = True) As HttpDriver
         Return New HttpDriver(silent)
     End Function
 
+    ''' <summary>
+    ''' get http headers data from the browser request
+    ''' </summary>
+    ''' <param name="req"></param>
+    ''' <returns></returns>
     <ExportAPI("getHeaders")>
     Public Function getHeaders(req As HttpRequest) As list
         Return New list(RType.GetRSharpType(GetType(String))) With {
@@ -73,6 +83,11 @@ Public Module HttpServer
         }
     End Function
 
+    ''' <summary>
+    ''' get url data from the browser request 
+    ''' </summary>
+    ''' <param name="req"></param>
+    ''' <returns></returns>
     <ExportAPI("getUrl")>
     Public Function getUrl(req As HttpRequest) As list
         Dim url As URL = req.URL
@@ -97,6 +112,11 @@ Public Module HttpServer
         }
     End Function
 
+    ''' <summary>
+    ''' get the raw http request header from the browser request
+    ''' </summary>
+    ''' <param name="req"></param>
+    ''' <returns></returns>
     <ExportAPI("getHttpRaw")>
     Public Function getHttpRaw(req As HttpRequest) As String
         Return req.HttpRequest.raw
@@ -118,6 +138,13 @@ Public Module HttpServer
         Return driver
     End Function
 
+    ''' <summary>
+    ''' list to the specific tcp port and run the R# http web server
+    ''' </summary>
+    ''' <param name="driver"></param>
+    ''' <param name="port%"></param>
+    ''' <param name="env"></param>
+    ''' <returns></returns>
     <ExportAPI("listen")>
     Public Function serve(driver As HttpDriver, Optional port% = -1, Optional env As Environment = Nothing) As Integer
         Dim httpPort As Integer = If(port <= 0, Rnd() * 30000, port)
@@ -137,11 +164,25 @@ Public Module HttpServer
         Return socket.Run()
     End Function
 
+    ''' <summary>
+    ''' write http error code and send error response to browser
+    ''' </summary>
+    ''' <param name="write"></param>
+    ''' <param name="code"></param>
+    ''' <param name="message"></param>
     <ExportAPI("httpError")>
     Public Sub httpError(write As HttpResponse, code As Integer, message As String)
         Call write.WriteError(code, message)
     End Sub
 
+    ''' <summary>
+    ''' set http method handler to the R# web server
+    ''' </summary>
+    ''' <param name="driver"></param>
+    ''' <param name="method"></param>
+    ''' <param name="process"></param>
+    ''' <param name="env"></param>
+    ''' <returns></returns>
     <ExportAPI("httpMethod")>
     Public Function httpMethod(driver As HttpDriver, method As String, process As RFunction, Optional env As Environment = Nothing) As HttpDriver
         Call driver.HttpMethod(
