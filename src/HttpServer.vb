@@ -97,6 +97,11 @@ Public Module HttpServer
         }
     End Function
 
+    <ExportAPI("getHttpRaw")>
+    Public Function getHttpRaw(req As HttpRequest) As String
+        Return req.HttpRequest.raw
+    End Function
+
     ''' <summary>
     ''' add custom http response headers
     ''' </summary>

@@ -16,6 +16,8 @@ const handleHttpGet as function(req, response) {
 
 	str(getUrl(req));
 	str(getHeaders(req));
+	
+	print(getHttpRaw(req));
 
 	if (file.exists(R)) {
 		writeLines(source(R), con = response);
@@ -27,8 +29,20 @@ const handleHttpGet as function(req, response) {
 }
 
 const handleHttpPost as function(req, response) {
+	const R as string = router(getUrl(req));
+
+	str(getUrl(req));
 	str(getHeaders(req));
-	writeLines("hello http post!", con = response);
+	
+	print(getHttpRaw(req));
+
+	if (file.exists(R)) {
+		writeLines(source(R), con = response);
+	} else {
+		response 
+		|> httpError(404, `the required Rscript file is not found on filesystem location: '${ normalizePath(R) }'!`)
+		;
+	}	
 }
 
 http::http_socket()
