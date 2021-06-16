@@ -53,7 +53,8 @@ cat("\n\n");
 
 http::http_socket()
 |> headers(
-  "X-Powered-By" = "R# server"
+  "X-Powered-By" = "R# web server",
+  "Author"       = "xieguigang <xie.guigang@gcmodeller.org>"
 )
 |> httpMethod("GET", handleHttpGet)
 |> httpMethod("POST", handleHttpPost)
