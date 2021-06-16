@@ -54,7 +54,9 @@ cat("\n\n");
 http::http_socket()
 |> headers(
   "X-Powered-By" = "R# web server",
-  "Author"       = "xieguigang <xie.guigang@gcmodeller.org>"
+  "Author"       = "xieguigang <xie.guigang@gcmodeller.org>",
+  "Github"       = "https://github.com/rsharp-lang/Rserver",
+  "Organization" = "R# language <https://github.com/rsharp-lang/>"
 )
 |> httpMethod("GET", handleHttpGet)
 |> httpMethod("POST", handleHttpPost)
