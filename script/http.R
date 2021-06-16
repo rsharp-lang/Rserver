@@ -5,12 +5,22 @@ imports "http" from "Rhttp";
 # description: a commandline R# script for running a http web server.
 
 [@info "the http port for listen, 80 port number is used by default."]
-const httpPort as integer = ?"--listen" || 80;
+const httpPort as integer  = ?"--listen"  || 80;
+[@info "A directory path that contains the R script for running in this R# web server."]
+[@type "directory"]
+const webContext as string = ?"--wwwroot" || dirname(@script);
 
+#' Route url as local R script file
+#' 
+#' @param url the url object that parsed from the
+#'     http request.
+#' 
 const router as function(url) {
-  `${dirname(@script)}/../web.R/${url$path}.R`;
+  `${webContext}/../web.R/${url$path}.R`;
 }
 
+#' Handle http GET request
+#' 
 const handleHttpGet as function(req, response) {
   const R as string = router(getUrl(req));
 
@@ -32,6 +42,8 @@ const handleHttpGet as function(req, response) {
   }
 }
 
+#' Handle http POST request
+#' 
 const handleHttpPost as function(req, response) {
   const R as string = router(getUrl(req));
 
@@ -58,7 +70,7 @@ http::http_socket()
   "Github"       = "https://github.com/rsharp-lang/Rserver",
   "Organization" = "R# language <https://github.com/rsharp-lang/>"
 )
-|> httpMethod("GET", handleHttpGet)
+|> httpMethod("GET",  handleHttpGet)
 |> httpMethod("POST", handleHttpPost)
 |> httpMethod("PUT", [req, response] => writeLines("HTTP PUT test success!", con = response))
 |> listen(port = httpPort)
