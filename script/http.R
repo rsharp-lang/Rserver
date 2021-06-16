@@ -16,7 +16,7 @@ const webContext as string = ?"--wwwroot" || dirname(@script);
 #'     http request.
 #' 
 const router as function(url) {
-  `${webContext}/../web.R/${url$path}.R`;
+  `${webContext}/../web.R/${ trim(url$path, ".") }.R`;
 }
 
 #' Handle http GET request
