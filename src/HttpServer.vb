@@ -207,5 +207,10 @@ Public Module HttpServer
 
         Return driver
     End Function
+
+    <ExportAPI("pushDownload")>
+    Public Sub pushDownload(response As HttpResponse, filename As String)
+        Call response.SendFile(filename)
+    End Sub
 End Module
 #End If
