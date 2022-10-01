@@ -48,8 +48,8 @@ Global
 		{66EDD906-D2FF-4FDD-AAB2-85EF71D1D770}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66EDD906-D2FF-4FDD-AAB2-85EF71D1D770}.Debug|ARM32.ActiveCfg = Debug|Any CPU
 		{66EDD906-D2FF-4FDD-AAB2-85EF71D1D770}.Debug|ARM32.Build.0 = Debug|Any CPU
-		{66EDD906-D2FF-4FDD-AAB2-85EF71D1D770}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{66EDD906-D2FF-4FDD-AAB2-85EF71D1D770}.Debug|x64.Build.0 = Debug|Any CPU
+		{66EDD906-D2FF-4FDD-AAB2-85EF71D1D770}.Debug|x64.ActiveCfg = Debug|x64
+		{66EDD906-D2FF-4FDD-AAB2-85EF71D1D770}.Debug|x64.Build.0 = Debug|x64
 		{66EDD906-D2FF-4FDD-AAB2-85EF71D1D770}.gcmodeller_desktop|Any CPU.ActiveCfg = Release|Any CPU
 		{66EDD906-D2FF-4FDD-AAB2-85EF71D1D770}.gcmodeller_desktop|Any CPU.Build.0 = Release|Any CPU
 		{66EDD906-D2FF-4FDD-AAB2-85EF71D1D770}.gcmodeller_desktop|ARM32.ActiveCfg = Release|Any CPU
@@ -96,8 +96,8 @@ Global
 		{66EDD906-D2FF-4FDD-AAB2-85EF71D1D770}.Rsharp_app_release|Any CPU.Build.0 = Release|Any CPU
 		{66EDD906-D2FF-4FDD-AAB2-85EF71D1D770}.Rsharp_app_release|ARM32.ActiveCfg = Release|Any CPU
 		{66EDD906-D2FF-4FDD-AAB2-85EF71D1D770}.Rsharp_app_release|ARM32.Build.0 = Release|Any CPU
-		{66EDD906-D2FF-4FDD-AAB2-85EF71D1D770}.Rsharp_app_release|x64.ActiveCfg = Release|Any CPU
-		{66EDD906-D2FF-4FDD-AAB2-85EF71D1D770}.Rsharp_app_release|x64.Build.0 = Release|Any CPU
+		{66EDD906-D2FF-4FDD-AAB2-85EF71D1D770}.Rsharp_app_release|x64.ActiveCfg = Rsharp_app_release|x64
+		{66EDD906-D2FF-4FDD-AAB2-85EF71D1D770}.Rsharp_app_release|x64.Build.0 = Rsharp_app_release|x64
 		{ED9E7FBA-F5E5-491C-82D4-AD8A2BA719C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{ED9E7FBA-F5E5-491C-82D4-AD8A2BA719C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED9E7FBA-F5E5-491C-82D4-AD8A2BA719C8}.Debug|ARM32.ActiveCfg = Debug|Any CPU
