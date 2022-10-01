@@ -133,7 +133,11 @@ Public Module HttpServer
     ''' <param name="env"></param>
     ''' <returns></returns>
     <ExportAPI("headers")>
-    Public Function customResponseHeader(driver As HttpDriver, <RListObjectArgument> headers As list, Optional env As Environment = Nothing) As HttpDriver
+    Public Function customResponseHeader(driver As HttpDriver,
+                                         <RListObjectArgument>
+                                         headers As list,
+                                         Optional env As Environment = Nothing) As HttpDriver
+
         For Each header As KeyValuePair(Of String, String) In headers.AsGeneric(Of String)(env)
             Call driver.AddResponseHeader(header.Key, header.Value)
         Next
@@ -149,7 +153,10 @@ Public Module HttpServer
     ''' <param name="env"></param>
     ''' <returns></returns>
     <ExportAPI("listen")>
-    Public Function serve(driver As HttpDriver, Optional port% = -1, Optional env As Environment = Nothing) As Integer
+    Public Function serve(driver As HttpDriver,
+                          Optional port% = -1,
+                          Optional env As Environment = Nothing) As Integer
+
         Dim httpPort As Integer = If(port <= 0, Rnd() * 30000, port)
         Dim socket As HttpSocket = driver.GetSocket(httpPort)
         Dim localUrl$ = $"http://localhost:{httpPort}/"
@@ -160,7 +167,7 @@ Public Module HttpServer
                     Call Thread.Sleep(3000)
                     Call Process.Start(localUrl)
                 End Sub) _
- _
+                         _
             .Start()
         End If
 
@@ -187,7 +194,11 @@ Public Module HttpServer
     ''' <param name="env"></param>
     ''' <returns></returns>
     <ExportAPI("httpMethod")>
-    Public Function httpMethod(driver As HttpDriver, method As String, process As RFunction, Optional env As Environment = Nothing) As HttpDriver
+    Public Function httpMethod(driver As HttpDriver,
+                               method As String,
+                               process As RFunction,
+                               Optional env As Environment = Nothing) As HttpDriver
+
         Call driver.HttpMethod(
             method:=method.ToUpper,
             handler:=Sub(req, response)
