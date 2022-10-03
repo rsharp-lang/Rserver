@@ -197,11 +197,16 @@ Public Module HttpServer
     Public Function httpMethod(driver As HttpDriver,
                                method As String,
                                process As RFunction,
+                               Optional accessAny As Boolean = False,
                                Optional env As Environment = Nothing) As HttpDriver
 
         Call driver.HttpMethod(
             method:=method.ToUpper,
             handler:=Sub(req, response)
+                         If accessAny Then
+                             response.AccessControlAllowOrigin = "*"
+                         End If
+
                          Call process.Invoke({req, response}, env)
                      End Sub)
 
