@@ -372,8 +372,8 @@ Global
 		{B64B5E6A-546F-4884-A60D-3955E129CA6D}.Rsharp_app_release|Any CPU.Build.0 = Release|Any CPU
 		{B64B5E6A-546F-4884-A60D-3955E129CA6D}.Rsharp_app_release|ARM32.ActiveCfg = Release|Any CPU
 		{B64B5E6A-546F-4884-A60D-3955E129CA6D}.Rsharp_app_release|ARM32.Build.0 = Release|Any CPU
-		{B64B5E6A-546F-4884-A60D-3955E129CA6D}.Rsharp_app_release|x64.ActiveCfg = Release|Any CPU
-		{B64B5E6A-546F-4884-A60D-3955E129CA6D}.Rsharp_app_release|x64.Build.0 = Release|Any CPU
+		{B64B5E6A-546F-4884-A60D-3955E129CA6D}.Rsharp_app_release|x64.ActiveCfg = Rsharp_app_release|x64
+		{B64B5E6A-546F-4884-A60D-3955E129CA6D}.Rsharp_app_release|x64.Build.0 = Rsharp_app_release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
