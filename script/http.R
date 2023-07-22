@@ -15,13 +15,13 @@ const webContext as string = ?"--wwwroot" || `${dirname(@script)}/../web.R`;
 #' @param url the url object that parsed from the
 #'     http request.
 #' 
-const router as function(url) {
+const router = function(url) {
   `${webContext}/${ trim(url$path, ".") }.R`;
 }
 
 #' Handle http GET request
 #' 
-const handleHttpGet as function(req, response) {
+const handleHttpGet = function(req, response) {
   const R as string = router(getUrl(req));
 
   print("request from the browser client:");
@@ -44,7 +44,7 @@ const handleHttpGet as function(req, response) {
 
 #' Handle http POST request
 #' 
-const handleHttpPost as function(req, response) {
+const handleHttpPost = function(req, response) {
   const R as string = router(getUrl(req));
 
   str(getUrl(req));
