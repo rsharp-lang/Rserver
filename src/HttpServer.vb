@@ -229,6 +229,7 @@ Public Module HttpServer
                          If Program.isException(result) Then
                              ' return http 500
                              Call response.WriteError(500, DirectCast(result, Message).ToErrorText)
+                             Call response.Flush()
                          End If
                      End Sub)
 
