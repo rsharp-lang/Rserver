@@ -56,6 +56,9 @@ Public Class Router
             If TypeOf line Is DeclareNewFunction Then
                 Dim func As DeclareNewFunction = line
 
+                For Each url As String In func.GetAttributeValue("url")
+                    urls.urls(url) = func
+                Next
             End If
         Next
 
