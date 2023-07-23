@@ -5,6 +5,7 @@
 + [http_socket](http/http_socket.1) 
 + [getHeaders](http/getHeaders.1) 
 + [getUrl](http/getUrl.1) 
++ [parseUrl](http/parseUrl.1) 
 + [getHttpRaw](http/getHttpRaw.1) 
 + [headers](http/headers.1) 
 + [listen](http/listen.1) 

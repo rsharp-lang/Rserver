@@ -6,12 +6,11 @@
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
     <title>http</title>
     <meta name="author" content="xie.guigang@gcmodeller.org" />
-    <meta name="copyright" content="SMRUCC genomics Copyright (c) 2020" />
-    <meta name="keywords" content="GCModeller; Xanthomonas; Artificial Life" />
-    <meta name="generator" content="https://github.com/xieguigang/xDoc" />
+    <meta name="copyright" content="SMRUCC genomics Copyright (c) 2022" />
+    <meta name="keywords" content="R#; http; RwebHost" />
+    <meta name="generator" content="https://github.com/rsharp-lang" />
     <meta name="theme-color" content="#333" />
-    <meta name="last-update" content="2022-11-08" />
-    <meta name="description" content="A software system aim at Artificial Life system design and analysis." />
+    <meta name="description" content="..." />
     <meta class="foundation-data-attribute-namespace" />
     <meta class="foundation-mq-xxlarge" />
     <meta class="foundation-mq-xlarge" />
@@ -19,6 +18,36 @@
     <meta class="foundation-mq-medium" />
     <meta class="foundation-mq-small" />
     <meta class="foundation-mq-topbar" />
+    <style>
+
+.table-three-line {
+border-collapse:collapse; /* 关键属性：合并表格内外边框(其实表格边框有2px，外面1px，里面还有1px哦) */
+border:solid #000000; /* 设置边框属性；样式(solid=实线)、颜色(#999=灰) */
+border-width:2px 0 2px 0px; /* 设置边框状粗细：上 右 下 左 = 对应：1px 0 0 1px */
+}
+.left-1{
+    border:solid #000000;border-width:1px 1px 2px 0px;padding:2px;
+    font-weight:bolder;
+}
+.right-1{
+    border:solid #000000;border-width:1px 0px 2px 1px;padding:2px;
+    font-weight:bolder;
+}
+.mid-1{
+    border:solid #000000;border-width:1px 1px 2px 1px;padding:2px;
+    font-weight:bolder;
+}
+.left{
+    border:solid #000000;border-width:1px 1px 1px 0px;padding:2px;
+}
+.right{
+    border:solid #000000;border-width:1px 0px 1px 1px;padding:2px;
+}
+.mid{
+    border:solid #000000;border-width:1px 1px 1px 1px;padding:2px;
+}
+table caption {font-size:14px;font-weight:bolder;}
+</style>
   </head>
   <body>
     <table width="100%" summary="page for {http}">
@@ -31,238 +60,81 @@
     </table>
     <h1>http</h1>
     <hr />
+    <p style="     font-size: 1.125em;     line-height: .8em;     margin-left: 0.5%;     background-color: #fbfbfb;     padding: 24px; ">
+      <code>
+        <span style="color: blue;">require</span>(<span style="color: black; font-weight: bold;">Rserver</span>);
+                               <br /><br /><span style="color: green;">{$desc_comments}</span><br /><span style="color: blue;">imports</span><span style="color: brown"> "http"</span><span style="color: blue;"> from</span><span style="color: brown"> "RwebHost"</span>;
+                           </code>
+    </p>
     <p></p>
+    <blockquote>
+      <p style="font-style: italic; font-size: 0.9em;">
+                           
+                           </p>
+    </blockquote>
     <div id="main-wrapper">
-                           <div>
-  <h2 id="http_socket">
+      <table class="table-three-line">
+        <tbody><tr>
+  <td id="http_socket">
     <a href="./http/http_socket.html">http_socket</a>
-  </h2>
-  <hr />
-  <p>
-                      
-                
-                    <pre><p>let <code>http_socket</code> as function(<code>silent</code> as boolean = TRUE) -> <code>&lt;generic&gt; HttpDriver</code> {
-    #
-    # .NET API information
-    #
-    # module: RwebHost.HttpServer
-    # LibPath: E:/GCModeller/src/workbench/win32_desktop/src/Rstudio/Rserver/assembly/net6.0
-    # library: RwebHost.dll
-    # package: "http"
-    #
-    return call <code>R&#35;.interop_[HttpServer::createDriver]</code>(...);
-}</p></pre>
-
-                    
-                       
-                    
-
-                    <span style="font-size:0.9em; display: none"><h4>Details</h4><blockquote></blockquote></span></p>
-</div><br /><div>
-  <h2 id="getHeaders">
+  </td>
+  <td></td>
+</tr>
+<tr>
+  <td id="getHeaders">
     <a href="./http/getHeaders.html">getHeaders</a>
-  </h2>
-  <hr />
-  <p>
-                      
-                
-                    <pre><p>let <code>getHeaders</code> as function(<code>req</code> as <generic> HttpRequest) -> <code>list</code> {
-    #
-    # .NET API information
-    #
-    # module: RwebHost.HttpServer
-    # LibPath: E:/GCModeller/src/workbench/win32_desktop/src/Rstudio/Rserver/assembly/net6.0
-    # library: RwebHost.dll
-    # package: "http"
-    #
-    return call <code>R&#35;.interop_[HttpServer::getHeaders]</code>(...);
-}</p></pre>
-
-                    
-                       
-                    
-
-                    <span style="font-size:0.9em; display: none"><h4>Details</h4><blockquote></blockquote></span></p>
-</div><br /><div>
-  <h2 id="getUrl">
+  </td>
+  <td></td>
+</tr>
+<tr>
+  <td id="getUrl">
     <a href="./http/getUrl.html">getUrl</a>
-  </h2>
-  <hr />
-  <p>
-                      
-                
-                    <pre><p>let <code>getUrl</code> as function(<code>req</code> as <generic> HttpRequest) -> <code>list</code> {
-    #
-    # .NET API information
-    #
-    # module: RwebHost.HttpServer
-    # LibPath: E:/GCModeller/src/workbench/win32_desktop/src/Rstudio/Rserver/assembly/net6.0
-    # library: RwebHost.dll
-    # package: "http"
-    #
-    return call <code>R&#35;.interop_[HttpServer::getUrl]</code>(...);
-}</p></pre>
-
-                    
-                       
-                    
-
-                    <span style="font-size:0.9em; display: none"><h4>Details</h4><blockquote></blockquote></span></p>
-</div><br /><div>
-  <h2 id="getHttpRaw">
+  </td>
+  <td></td>
+</tr>
+<tr>
+  <td id="parseUrl">
+    <a href="./http/parseUrl.html">parseUrl</a>
+  </td>
+  <td></td>
+</tr>
+<tr>
+  <td id="getHttpRaw">
     <a href="./http/getHttpRaw.html">getHttpRaw</a>
-  </h2>
-  <hr />
-  <p>
-                      
-                
-                    <pre><p>let <code>getHttpRaw</code> as function(<code>req</code> as <generic> HttpRequest) -> <code>string</code> {
-    #
-    # .NET API information
-    #
-    # module: RwebHost.HttpServer
-    # LibPath: E:/GCModeller/src/workbench/win32_desktop/src/Rstudio/Rserver/assembly/net6.0
-    # library: RwebHost.dll
-    # package: "http"
-    #
-    return call <code>R&#35;.interop_[HttpServer::getHttpRaw]</code>(...);
-}</p></pre>
-
-                    
-                       
-                    
-
-                    <span style="font-size:0.9em; display: none"><h4>Details</h4><blockquote></blockquote></span></p>
-</div><br /><div>
-  <h2 id="headers">
+  </td>
+  <td></td>
+</tr>
+<tr>
+  <td id="headers">
     <a href="./http/headers.html">headers</a>
-  </h2>
-  <hr />
-  <p>
-                      
-                
-                    <pre><p>let <code>headers</code> as function(<code>driver</code> as <generic> HttpDriver, ..., [<code>&lt;Environment&gt;</code>]) -> <code>&lt;generic&gt; HttpDriver</code> {
-    #
-    # .NET API information
-    #
-    # module: RwebHost.HttpServer
-    # LibPath: E:/GCModeller/src/workbench/win32_desktop/src/Rstudio/Rserver/assembly/net6.0
-    # library: RwebHost.dll
-    # package: "http"
-    #
-    return call <code>R&#35;.interop_[HttpServer::customResponseHeader]</code>(...);
-}</p></pre>
-
-                    
-                       
-                    
-
-                    <span style="font-size:0.9em; display: none"><h4>Details</h4><blockquote></blockquote></span></p>
-</div><br /><div>
-  <h2 id="listen">
+  </td>
+  <td></td>
+</tr>
+<tr>
+  <td id="listen">
     <a href="./http/listen.html">listen</a>
-  </h2>
-  <hr />
-  <p>
-                      
-                
-                    <pre><p>let <code>listen</code> as function(<code>driver</code> as <generic> HttpDriver, <code>port</code> as integer = -1, [<code>&lt;Environment&gt;</code>]) -> <code>integer</code> {
-    #
-    # .NET API information
-    #
-    # module: RwebHost.HttpServer
-    # LibPath: E:/GCModeller/src/workbench/win32_desktop/src/Rstudio/Rserver/assembly/net6.0
-    # library: RwebHost.dll
-    # package: "http"
-    #
-    return call <code>R&#35;.interop_[HttpServer::serve]</code>(...);
-}</p></pre>
-
-                    
-                       
-                    
-
-                    <span style="font-size:0.9em; display: none"><h4>Details</h4><blockquote></blockquote></span></p>
-</div><br /><div>
-  <h2 id="httpError">
+  </td>
+  <td></td>
+</tr>
+<tr>
+  <td id="httpError">
     <a href="./http/httpError.html">httpError</a>
-  </h2>
-  <hr />
-  <p>
-                      
-                
-                    <pre><p>let <code>httpError</code> as function(<code>write</code> as <generic> HttpResponse, <code>code</code> as integer, <code>message</code> as string) -> <code>any</code> {
-    #
-    # .NET API information
-    #
-    # module: RwebHost.HttpServer
-    # LibPath: E:/GCModeller/src/workbench/win32_desktop/src/Rstudio/Rserver/assembly/net6.0
-    # library: RwebHost.dll
-    # package: "http"
-    #
-    return call <code>R&#35;.interop_[HttpServer::httpError]</code>(...);
-}</p></pre>
-
-                    
-                       
-                    
-
-                    <span style="font-size:0.9em; display: none"><h4>Details</h4><blockquote></blockquote></span></p>
-</div><br /><div>
-  <h2 id="httpMethod">
+  </td>
+  <td></td>
+</tr>
+<tr>
+  <td id="httpMethod">
     <a href="./http/httpMethod.html">httpMethod</a>
-  </h2>
-  <hr />
-  <p>
-                      
-                
-                    <pre><p>let <code>httpMethod</code> as function(<code>driver</code> as <generic> HttpDriver, 
-<code>method</code> as string, 
-<code>process</code> as <generic> RFunction, 
-<code>accessAny</code> as boolean = FALSE, 
-[<code>&lt;Environment&gt;</code>]) -> <code>&lt;generic&gt; HttpDriver</code> {
-    #
-    # .NET API information
-    #
-    # module: RwebHost.HttpServer
-    # LibPath: E:/GCModeller/src/workbench/win32_desktop/src/Rstudio/Rserver/assembly/net6.0
-    # library: RwebHost.dll
-    # package: "http"
-    #
-    return call <code>R&#35;.interop_[HttpServer::httpMethod]</code>(...);
-}</p></pre>
-
-                    
-                       
-                    
-
-                    <span style="font-size:0.9em; display: none"><h4>Details</h4><blockquote></blockquote></span></p>
-</div><br /><div>
-  <h2 id="pushDownload">
+  </td>
+  <td></td>
+</tr>
+<tr>
+  <td id="pushDownload">
     <a href="./http/pushDownload.html">pushDownload</a>
-  </h2>
-  <hr />
-  <p>
-                      
-                
-                    <pre><p>let <code>pushDownload</code> as function(<code>response</code> as <generic> HttpResponse, <code>filename</code> as string) -> <code>any</code> {
-    #
-    # .NET API information
-    #
-    # module: RwebHost.HttpServer
-    # LibPath: E:/GCModeller/src/workbench/win32_desktop/src/Rstudio/Rserver/assembly/net6.0
-    # library: RwebHost.dll
-    # package: "http"
-    #
-    return call <code>R&#35;.interop_[HttpServer::pushDownload]</code>(...);
-}</p></pre>
-
-                    
-                       
-                    
-
-                    <span style="font-size:0.9em; display: none"><h4>Details</h4><blockquote></blockquote></span></p>
-</div>
-                       </div>
+  </td>
+  <td></td>
+</tr></tbody>
+      </table>
+    </div>
   </body>
 </html>
