@@ -1,5 +1,4 @@
-﻿Imports System.Net.Http.Headers
-Imports Flute.Http.Core.Message
+﻿Imports Flute.Http.Core.Message
 Imports Microsoft.VisualBasic.CommandLine.Reflection
 Imports Microsoft.VisualBasic.Scripting.MetaData
 Imports SMRUCC.Rsharp.Interpreter.ExecuteEngine
@@ -21,6 +20,8 @@ Module RouterFunction
 
     <ExportAPI("handle")>
     Public Function handle(req As HttpRequest, response As HttpResponse, router As Router, Optional env As Environment = Nothing) As Object
+        Dim println = env.WriteLineHandler
+        println("start to handle http request!")
         Return router.HandleRequest(req, response, env)
     End Function
 End Module
@@ -32,6 +33,9 @@ Public Class Router
     Public Function HandleRequest(req As HttpRequest, response As HttpResponse, env As Environment) As Object
         Dim url = req.URL
         Dim func = urls.TryGetValue(url.path)
+        Dim writeLine = env.WriteLineHandler
+
+        Call writeLine($" -> [{url.path}]")
 
         If func Is Nothing Then
             ' 404

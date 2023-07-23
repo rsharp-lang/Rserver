@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "RwebHost": {
+      "commandName": "Project"
+    },
+    "http_debug": {
+      "commandName": "Executable",
+      "executablePath": "G:\\GCModeller\\src\\workbench\\win32_desktop\\Apps\\Rstudio\\bin\\Rscript.exe",
+      "commandLineArgs": "\"G:\\GCModeller\\src\\workbench\\win32_desktop\\src\\Rstudio\\background\\vcellPackViewer.R\" --setdlldirectory ../host --file \"G:\\cell-render\\test\\result.vcellPack\"",
+      "workingDirectory": "G:\\GCModeller\\src\\workbench\\win32_desktop\\Apps\\Rstudio\\bin"
+    }
+  }
+}
