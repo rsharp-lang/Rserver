@@ -59,7 +59,9 @@ Imports Flute.Http.Core.Message
 Imports Microsoft.VisualBasic.CommandLine.Reflection
 Imports Microsoft.VisualBasic.Net.Http
 Imports Microsoft.VisualBasic.Scripting.MetaData
+Imports SMRUCC.Rsharp.Interpreter
 Imports SMRUCC.Rsharp.Runtime
+Imports SMRUCC.Rsharp.Runtime.Components
 Imports SMRUCC.Rsharp.Runtime.Components.Interface
 Imports SMRUCC.Rsharp.Runtime.Internal.Object
 Imports SMRUCC.Rsharp.Runtime.Interop
@@ -222,7 +224,12 @@ Public Module HttpServer
                              response.AccessControlAllowOrigin = "*"
                          End If
 
-                         Call process.Invoke({req, response}, env)
+                         Dim result = process.Invoke({req, response}, env)
+
+                         If Program.isException(result) Then
+                             ' return http 500
+                             Call response.WriteError(500, DirectCast(result, Message).ToErrorText)
+                         End If
                      End Sub)
 
         Return driver
