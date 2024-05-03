@@ -76,7 +76,7 @@ Public Module HttpServer
     ''' <returns></returns>
     <ExportAPI("http_socket")>
     Public Function createDriver(Optional silent As Boolean = True) As HttpDriver
-        Return New HttpDriver(silent)
+        Return New HttpDriver(New Configurations.Configuration With {.silent = silent})
     End Function
 
     ''' <summary>
