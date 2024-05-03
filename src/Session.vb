@@ -32,4 +32,14 @@ Module Session
         Return Flute.SessionManager.Open(key, config).OpenKeyString(key)
     End Function
 
+    <ExportAPI("get_number")>
+    Public Function get_number(key As String) As Double
+        Return Flute.SessionManager.Open(key, config).OpenKeyDouble(key)
+    End Function
+
+    <ExportAPI("get_integer")>
+    Public Function get_integer(key As String) As Integer
+        Return Flute.SessionManager.Open(key, config).OpenKeyInteger(key)
+    End Function
+
 End Module
