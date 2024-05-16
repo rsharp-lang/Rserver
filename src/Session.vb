@@ -1,4 +1,5 @@
-﻿Imports Flute.Http.Configurations
+﻿Imports System.IO
+Imports Flute.Http.Configurations
 Imports Flute.Http.Core.Message
 Imports Microsoft.VisualBasic.CommandLine.Reflection
 Imports Microsoft.VisualBasic.Scripting.MetaData
@@ -13,8 +14,9 @@ Module Session
 
     <ExportAPI("load")>
     Public Function load(Optional env As Environment = Nothing) As String
+        Dim std_in As String = New StreamReader(Console.OpenStandardInput).ReadToEnd
         Dim cookie_str As String = env.globalEnvironment.options.getOption("cookies")
-        Dim config_str As String = env.globalEnvironment.options.getOption("config")
+        Dim config_str As String = env.globalEnvironment.options.getOption("configs")
         Dim cookies As Cookies = Cookies.ParseCookies(cookie_str)
         Dim ssid As String = cookies.GetCookie("session_id")
         Session.ssid = ssid
