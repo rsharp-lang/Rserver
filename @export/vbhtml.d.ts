@@ -8,8 +8,11 @@
 */
 declare namespace vbhtml {
    /**
+   */
+   function compile(file: string): any;
+   /**
      * @param symbols default value Is ``null``.
      * @param env default value Is ``null``.
    */
-   function rendering(file: string, wwwroot: string, symbols?: object, env?: object): any;
+   function rendering(file: string, symbols?: object, env?: object): any;
 }

@@ -31,7 +31,7 @@ declare namespace http {
      * @param accessAny default value Is ``false``.
      * @param env default value Is ``null``.
    */
-   function httpMethod(driver: object, method: string, process: object, accessAny?: boolean, env?: object): object;
+   function httpMethod(driver: object, method: string, process: any, accessAny?: boolean, env?: object): object;
    /**
      * @param port default value Is ``-1``.
      * @param env default value Is ``null``.
