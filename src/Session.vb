@@ -18,14 +18,15 @@ Module Session
 
     <ExportAPI("load")>
     Public Function load(Optional env As Environment = Nothing) As String
-        Dim std_in As String() = New StreamReader(Console.OpenStandardInput).ReadToEnd.LineTokens
-        Dim boundary As String = std_in.First
-        Dim buf As New MemoryStream(std_in(1).Base64RawBytes)
+        Dim std_in As New StreamReader(Console.OpenStandardInput)
+        Dim boundary As String = std_in.ReadLine
+        Dim buf As New MemoryStream(std_in.ReadLine.Base64RawBytes)
         Dim reader As New PostReader.ContentOutput With {
             .files = New Dictionary(Of String, List(Of HttpPostedFile)),
             .form = New NameValueCollection
         }
 
+        Call std_in.Close()
         Call PostReader.loadMultiPart(boundary, buf, reader, Encoding.UTF8)
 
         Dim cookie_str As String = reader.form("cookies")
