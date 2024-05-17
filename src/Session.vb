@@ -18,9 +18,14 @@ Module Session
 
     <ExportAPI("load")>
     Public Function load(Optional env As Environment = Nothing) As String
+        Console.WriteLine("open std in")
         Dim std_in As New StreamReader(Console.OpenStandardInput)
         Dim boundary As String = std_in.ReadLine
-        Dim buf As New MemoryStream(std_in.ReadLine.Base64RawBytes)
+        Console.WriteLine(boundary)
+        Dim form As String = std_in.ReadLine
+
+        Console.WriteLine(form)
+        Dim buf As New MemoryStream(form.Base64RawBytes)
         Dim reader As New PostReader.ContentOutput With {
             .files = New Dictionary(Of String, List(Of HttpPostedFile)),
             .form = New NameValueCollection
