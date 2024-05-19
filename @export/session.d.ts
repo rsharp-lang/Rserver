@@ -23,4 +23,7 @@ declare namespace session {
    /**
    */
    function session_id(): string;
+   /**
+   */
+   function set_string(key: string, value: string): any;
 }
