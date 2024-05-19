@@ -1,12 +1,6 @@
-﻿Imports System.Collections.Specialized
-Imports System.IO
-Imports System.Text
-Imports Flute.Http.Configurations
-Imports Flute.Http.Core.HttpStream
+﻿Imports Flute.Http.Configurations
 Imports Flute.SessionManager
 Imports Microsoft.VisualBasic.CommandLine.Reflection
-Imports Microsoft.VisualBasic.Language
-Imports Microsoft.VisualBasic.Net.HTTP
 Imports Microsoft.VisualBasic.Scripting.MetaData
 Imports Microsoft.VisualBasic.Serialization.JSON
 Imports SMRUCC.Rsharp.Runtime
@@ -23,24 +17,8 @@ Module Session
 
     <ExportAPI("load")>
     Public Function load(Optional env As Environment = Nothing) As String
-        Console.WriteLine("open std in")
-        Dim std_in As New StreamReader(Console.OpenStandardInput)
-        Dim boundary As String = std_in.ReadLine
-        Console.WriteLine(boundary)
-        Dim form As String = std_in.ReadLine
-
-        Console.WriteLine(form)
-        Dim buf As New MemoryStream(form.Base64RawBytes)
-        Dim reader As New PostReader.ContentOutput With {
-            .files = New Dictionary(Of String, List(Of HttpPostedFile)),
-            .form = New NameValueCollection
-        }
-
-        Call std_in.Close()
-        Call PostReader.loadMultiPart(boundary, buf, reader, Encoding.UTF8)
-
-        Dim cookie_str As String = reader.form("cookies")
-        Dim config_str As String = reader.form("configs")
+        Dim cookie_str As String = System.Environment.GetEnvironmentVariable("cookies")
+        Dim config_str As String = System.Environment.GetEnvironmentVariable("configs")
         Dim cookies As Dictionary(Of String, String) = cookie_str.LoadJSON(Of Dictionary(Of String, String))
         Dim ssid As String = cookies.TryGetValue("session_id")
 
