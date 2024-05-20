@@ -7,4 +7,3 @@
 + [get_string](session/get_string.1) 
 + [get_number](session/get_number.1) 
 + [get_integer](session/get_integer.1) 
-+ [set_string](session/set_string.1) 

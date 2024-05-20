@@ -11,4 +11,11 @@ declare namespace Rserver {
    /**
    */
    function file_transfer(localfile: any): object;
+   /**
+     * @param err default value Is ``500``.
+   */
+   function http_error(data: any, err?: any): object;
+   /**
+   */
+   function http_success(data: any): object;
 }
