@@ -13,8 +13,10 @@ const http_success = function(data) {
     };
 
     response
-    |> JSON::json_encode(row.names = TRUE)
-    |> writeLines(con = buffer("text", mime = "application/json"))
+    |> JSON::json_encode(row.names = TRUE,
+        unicode.escape = FALSE)
+    |> writeLines(con = buffer("text", 
+        mime = "application/json"))
     ;
 }
 
@@ -25,7 +27,9 @@ const http_error = function(data, err = 500) {
     };
 
     response
-    |> JSON::json_encode(row.names = TRUE)
-    |> writeLines(con = buffer("text", mime = "application/json"))
+    |> JSON::json_encode(row.names = TRUE, 
+        unicode.escape = FALSE)
+    |> writeLines(con = buffer("text", 
+        mime = "application/json"))
     ;
 }
