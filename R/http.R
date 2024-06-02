@@ -12,6 +12,10 @@ const http_success = function(data) {
         info: data
     };
 
+    if (sink.number() > 0) {
+        sink();
+    }
+
     response
     |> JSON::json_encode(row.names = TRUE,
         unicode.escape = FALSE)
@@ -25,6 +29,10 @@ const http_error = function(data, err = 500) {
         code: err,
         info: data
     };
+
+    if (sink.number() > 0) {
+        sink();
+    }
 
     response
     |> JSON::json_encode(row.names = TRUE, 
