@@ -1,4 +1,4 @@
-﻿#Region "Microsoft.VisualBasic::29c3959bada69291cced91415a241f91, G:/GCModeller/src/workbench/win32_desktop/src/Rstudio/Rserver/src//Router.vb"
+﻿#Region "Microsoft.VisualBasic::29c3959bada69291cced91415a241f91, win32_desktop\src\Rstudio\Rserver\src\Router.vb"
 
     ' Author:
     ' 
@@ -35,9 +35,11 @@
     ' Code Statistics:
 
     '   Total Lines: 72
-    '    Code Lines: 52
-    ' Comment Lines: 5
-    '   Blank Lines: 15
+    '    Code Lines: 52 (72.22%)
+    ' Comment Lines: 5 (6.94%)
+    '    - Xml Docs: 60.00%
+    ' 
+    '   Blank Lines: 15 (20.83%)
     '     File Size: 2.27 KB
 
 

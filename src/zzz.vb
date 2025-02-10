@@ -1,4 +1,4 @@
-﻿#Region "Microsoft.VisualBasic::ad18e5fce7b9deac4be4e985a8ea800b, G:/GCModeller/src/workbench/win32_desktop/src/Rstudio/Rserver/src//zzz.vb"
+﻿#Region "Microsoft.VisualBasic::4dfbdd1ecbfe2c3092367c41c099e24a, win32_desktop\src\Rstudio\Rserver\src\zzz.vb"
 
     ' Author:
     ' 
@@ -35,10 +35,12 @@
     ' Code Statistics:
 
     '   Total Lines: 10
-    '    Code Lines: 6
-    ' Comment Lines: 0
-    '   Blank Lines: 4
-    '     File Size: 149 B
+    '    Code Lines: 6 (60.00%)
+    ' Comment Lines: 0 (0.00%)
+    '    - Xml Docs: 0.00%
+    ' 
+    '   Blank Lines: 4 (40.00%)
+    '     File Size: 147 B
 
 
     ' Class zzz
@@ -59,4 +61,3 @@ Public Class zzz
 
     End Sub
 End Class
-

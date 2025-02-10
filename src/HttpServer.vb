@@ -1,4 +1,4 @@
-﻿#Region "Microsoft.VisualBasic::c8483a1f1bfca40f3889d5b4a92a5d40, G:/GCModeller/src/workbench/win32_desktop/src/Rstudio/Rserver/src//HttpServer.vb"
+﻿#Region "Microsoft.VisualBasic::9c9d957d9da6111d1e9444c51404bf3d, win32_desktop\src\Rstudio\Rserver\src\HttpServer.vb"
 
     ' Author:
     ' 
@@ -35,10 +35,12 @@
     ' Code Statistics:
 
     '   Total Lines: 193
-    '    Code Lines: 122
-    ' Comment Lines: 49
-    '   Blank Lines: 22
-    '     File Size: 6.81 KB
+    '    Code Lines: 122 (63.21%)
+    ' Comment Lines: 49 (25.39%)
+    '    - Xml Docs: 97.96%
+    ' 
+    '   Blank Lines: 22 (11.40%)
+    '     File Size: 6.86 KB
 
 
     ' Module HttpServer
