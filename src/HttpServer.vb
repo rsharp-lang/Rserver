@@ -58,6 +58,7 @@ Imports System.Threading
 Imports Flute.Http
 Imports Flute.Http.Core
 Imports Flute.Http.Core.Message
+Imports Flute.Http.FileSystem
 Imports Microsoft.VisualBasic.CommandLine.Reflection
 Imports Microsoft.VisualBasic.Net.Http
 Imports Microsoft.VisualBasic.Scripting.MetaData
@@ -79,6 +80,22 @@ Public Module HttpServer
     <ExportAPI("http_socket")>
     Public Function createDriver(Optional silent As Boolean = True) As HttpDriver
         Return New HttpDriver(New Configurations.Configuration With {.silent = silent})
+    End Function
+
+    <ExportAPI("http_fsdir")>
+    Public Function createFsDir(wwwroot As String) As WebFileSystemListener
+        Return New WebFileSystemListener With {.fs = New FileSystem(wwwroot)}
+    End Function
+
+    <ExportAPI("http_exists")>
+    Public Function check_exists(www As WebFileSystemListener, req As HttpRequest) As Boolean
+        Return www.CheckResourceFileExists(req)
+    End Function
+
+    <ExportAPI("host_file")>
+    Public Function hostFile(www As WebFileSystemListener, req As HttpRequest, response As HttpResponse) As Object
+        Call www.WebHandler(req, response)
+        Return Nothing
     End Function
 
     ''' <summary>
