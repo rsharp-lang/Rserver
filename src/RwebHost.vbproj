@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <RootNamespace>RwebHost</RootNamespace>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <OutputPath>../assembly/</OutputPath>
     <Platforms>AnyCPU;x64</Platforms>
     <Configurations>Debug;Release;Rsharp_app_release</Configurations>
@@ -52,6 +52,7 @@
     <ProjectReference Include="..\..\..\..\..\..\runtime\sciBASIC#\Data\BinaryData\BinaryData\binarydata-netcore5.vbproj" />
     <ProjectReference Include="..\..\..\..\..\..\runtime\sciBASIC#\Microsoft.VisualBasic.Core\src\Core.vbproj" />
     <ProjectReference Include="..\..\..\..\..\..\runtime\sciBASIC#\mime\application%json\JSON-netcore5.vbproj" />
+    <ProjectReference Include="..\..\..\..\..\..\runtime\sciBASIC#\mime\text%html\html_netcore5.vbproj" />
   </ItemGroup>
 
 </Project>
