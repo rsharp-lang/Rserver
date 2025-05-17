@@ -21,6 +21,15 @@ declare namespace http {
    */
    function headers(driver: object, headers: object, env?: object): object;
    /**
+   */
+   function host_file(www: object, req: object, response: object): any;
+   /**
+   */
+   function http_exists(www: object, req: object): boolean;
+   /**
+   */
+   function http_fsdir(wwwroot: string): object;
+   /**
      * @param silent default value Is ``true``.
    */
    function http_socket(silent?: boolean): object;
