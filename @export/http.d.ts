@@ -14,6 +14,10 @@ declare namespace http {
    */
    function getHttpRaw(req: object): string;
    /**
+     * @param q default value Is ``null``.
+   */
+   function getPostData(req: object, q?: string): any;
+   /**
    */
    function getUrl(req: object): object;
    /**

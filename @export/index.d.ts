@@ -16,6 +16,7 @@ declare namespace Rserver {
    */
    function http_error(data: any, err?: any): object;
    /**
+     * @param s default value Is ``null``.
    */
-   function http_success(data: any): object;
+   function http_success(data: any, s?: any): object;
 }

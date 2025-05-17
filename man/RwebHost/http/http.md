@@ -7,6 +7,7 @@
 + [http_exists](http/http_exists.1) 
 + [host_file](http/host_file.1) 
 + [getHeaders](http/getHeaders.1) 
++ [getPostData](http/getPostData.1) 
 + [getUrl](http/getUrl.1) 
 + [parseUrl](http/parseUrl.1) 
 + [getHttpRaw](http/getHttpRaw.1) 

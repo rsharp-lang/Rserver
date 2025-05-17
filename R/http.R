@@ -6,7 +6,7 @@ const file_transfer = function(localfile) {
     pushDownload(localfile);
 }
 
-const http_success = function(data) {
+const http_success = function(data, s = NULL) {
     let response = {
         code: 0,
         info: data
@@ -16,11 +16,13 @@ const http_success = function(data) {
         sink();
     }
 
+    s <- ifelse(is.null(s), buffer("text", 
+        mime = "application/json"), s);
+
     response
     |> JSON::json_encode(row.names = TRUE,
         unicode.escape = FALSE)
-    |> writeLines(con = buffer("text", 
-        mime = "application/json"))
+    |> writeLines(con = s)
     ;
 }
 
