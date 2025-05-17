@@ -60,6 +60,7 @@ Imports Flute.Http.Core
 Imports Flute.Http.Core.Message
 Imports Flute.Http.FileSystem
 Imports Microsoft.VisualBasic.CommandLine.Reflection
+Imports Microsoft.VisualBasic.ComponentModel.Collection
 Imports Microsoft.VisualBasic.Net.Http
 Imports Microsoft.VisualBasic.Scripting.MetaData
 Imports SMRUCC.Rsharp.Interpreter
@@ -112,6 +113,17 @@ Public Module HttpServer
                                   Return CObj(h.Value)
                               End Function)
         }
+    End Function
+
+    <ExportAPI("getPostData")>
+    Public Function getPostData(req As HttpPOSTRequest, Optional q As String = Nothing) As Object
+        If q.StringEmpty(, True) Then
+            ' returns all in a list
+            Return New list(req.POSTData.Form)
+        Else
+            ' just returns key related value
+            Return CStr(req(q))
+        End If
     End Function
 
     ''' <summary>
