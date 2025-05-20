@@ -1,7 +1,6 @@
 ﻿Imports System.IO
 Imports System.Runtime.CompilerServices
 Imports Flute.Http.Core.Message
-Imports Microsoft.VisualBasic.ComponentModel.DataSourceModel
 Imports Microsoft.VisualBasic.Imaging
 Imports Rserver
 Imports SMRUCC.Rsharp.Interpreter.ExecuteEngine
@@ -30,7 +29,7 @@ Public Class Router
     ''' <returns></returns>
     ''' 
     <MethodImpl(MethodImplOptions.AggressiveInlining)>
-    Public Function CheckUrl(url As Boolean) As Boolean
+    Public Function CheckUrl(url As String) As Boolean
         Return urls.ContainsKey(url)
     End Function
 
