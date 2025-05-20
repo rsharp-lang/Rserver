@@ -8,11 +8,21 @@
 */
 declare namespace router {
    /**
+   */
+   function check_url(router: object, req: object): boolean;
+   /**
      * @param env default value Is ``null``.
    */
-   function handle(req: object, response: object, router: object, env?: object): any;
+   function handle(router: object, req: object, response: object, env?: object): any;
+   /**
+   */
+   function new(): object;
    /**
      * @param env default value Is ``null``.
    */
    function parse(exp: object, env?: object): any;
+   /**
+     * @param env default value Is ``null``.
+   */
+   function register_url(router: object, url: string, method: string, handler: any, env?: object): any;
 }

@@ -19,4 +19,7 @@ declare namespace Rserver {
      * @param s default value Is ``null``.
    */
    function http_success(data: any, s?: any): object;
+   /**
+   */
+   function scan_urls(): object;
 }
