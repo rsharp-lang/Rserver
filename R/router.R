@@ -1,3 +1,5 @@
+imports "router" from "RwebHost";
+
 #' scan runtime for web app register
 #' 
 const scan_urls = function() {
@@ -9,6 +11,7 @@ const scan_urls = function() {
 
         nchar(url) > 0; 
     });
+    let router = router::new();
 
     for(let func in http_tools) {
         # [@url "/tool_name"]
@@ -18,5 +21,13 @@ const scan_urls = function() {
         # default method is http get if the
         # @http custom attribute is missing 
         let http_method = tolower(attrs$http) || "get";
+
+        router |> register_url(
+                url = url,
+             method = http_method,
+            handler = func
+        );
     }
+
+    return(router);
 }
