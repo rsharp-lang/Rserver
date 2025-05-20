@@ -45,14 +45,18 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\..\..\R-sharp\R#\Rsharp-netcore5.vbproj" />
+    <ProjectReference Include="..\..\..\..\..\..\R-sharp\studio\Rserver\Rserver.NET5.vbproj" />
     <ProjectReference Include="..\..\..\..\..\..\runtime\Darwinism\src\networking\networking.vbproj" />
     <ProjectReference Include="..\..\..\..\..\..\runtime\httpd\src\Flute\Flute.NET5.vbproj" />
     <ProjectReference Include="..\..\..\..\..\..\runtime\httpd\src\WebCloud\Flute.SessionManager\Flute.SessionManager.vbproj" />
     <ProjectReference Include="..\..\..\..\..\..\runtime\httpd\src\WebCloud\SMRUCC.WebCloud.VBScript\Flute.Template.vbproj" />
     <ProjectReference Include="..\..\..\..\..\..\runtime\sciBASIC#\Data\BinaryData\BinaryData\binarydata-netcore5.vbproj" />
+    <ProjectReference Include="..\..\..\..\..\..\runtime\sciBASIC#\Data\DataFrame\dataframework-netcore5.vbproj" />
     <ProjectReference Include="..\..\..\..\..\..\runtime\sciBASIC#\Microsoft.VisualBasic.Core\src\Core.vbproj" />
     <ProjectReference Include="..\..\..\..\..\..\runtime\sciBASIC#\mime\application%json\JSON-netcore5.vbproj" />
     <ProjectReference Include="..\..\..\..\..\..\runtime\sciBASIC#\mime\text%html\html_netcore5.vbproj" />
   </ItemGroup>
+
+  <Import Project="..\..\..\..\..\..\R-sharp\Library\shares\JsonHelper\JsonHelper.projitems" Label="Shared" />
 
 </Project>
