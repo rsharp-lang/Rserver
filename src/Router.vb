@@ -101,4 +101,11 @@ Module RouterFunction
         Call router.SetUrl(url, handler)
         Return router
     End Function
+
+    <ExportAPI("check_url")>
+    Public Function check_url(router As Router, req As HttpRequest) As Boolean
+        Dim url = req.URL.path
+        Dim flag As Boolean = router.CheckUrl(url)
+        Return flag
+    End Function
 End Module
