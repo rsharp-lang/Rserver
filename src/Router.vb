@@ -68,62 +68,37 @@ Imports SMRUCC.Rsharp.Runtime.Interop
 ''' </summary>
 ''' 
 <Package("router")>
+<RTypeExport("router", GetType(Router))>
 Module RouterFunction
+
+    <ExportAPI("new")>
+    Public Function newRouter() As Router
+        Return New Router
+    End Function
 
     <ExportAPI("parse")>
     Public Function parse(<RLazyExpression> exp As Expression, Optional env As Environment = Nothing) As Object
         Return Router.Parse(exp, env)
     End Function
 
+    ''' <summary>
+    ''' handle the http request
+    ''' </summary>
+    ''' <param name="req"></param>
+    ''' <param name="response"></param>
+    ''' <param name="router"></param>
+    ''' <param name="env"></param>
+    ''' <returns></returns>
     <ExportAPI("handle")>
-    Public Function handle(req As HttpRequest, response As HttpResponse, router As Router, Optional env As Environment = Nothing) As Object
+    Public Function handle(router As Router, req As HttpRequest, response As HttpResponse, Optional env As Environment = Nothing) As Object
         Dim println = env.WriteLineHandler
         println("start to handle http request!")
         Return router.HandleRequest(req, response, env)
     End Function
+
+    <ExportAPI("register_url")>
+    Public Function register_url(router As Router, url As String, method As String, handler As DeclareNewFunction, Optional env As Environment = Nothing) As Object
+        Call router.SetUrl(url, handler)
+        Return router
+    End Function
 End Module
-
-Public Class Router
-
-    ReadOnly urls As New Dictionary(Of String, DeclareNewFunction)
-
-    Public Function HandleRequest(req As HttpRequest, response As HttpResponse, env As Environment) As Object
-        Dim url = req.URL
-        Dim func = urls.TryGetValue(url.path)
-        Dim writeLine = env.WriteLineHandler
-
-        Call writeLine($" -> [{url.path}]")
-
-        If func Is Nothing Then
-            ' 404
-            Return 404
-        Else
-            Return func.Invoke({req, response}, caller:=env)
-        End If
-    End Function
-
-    Public Shared Function Parse(exp As Expression, env As Environment) As Object
-        Dim funcs As Expression()
-
-        If TypeOf exp Is ClosureExpression Then
-            funcs = DirectCast(exp, ClosureExpression).EnumerateCodeLines.ToArray
-        Else
-            Return 500
-        End If
-
-        Dim urls As New Router
-
-        For Each line As Expression In funcs
-            If TypeOf line Is DeclareNewFunction Then
-                Dim func As DeclareNewFunction = line
-
-                For Each url As String In func.GetAttributeValue("url")
-                    urls.urls(url) = func
-                Next
-            End If
-        Next
-
-        Return urls
-    End Function
-
-End Class
