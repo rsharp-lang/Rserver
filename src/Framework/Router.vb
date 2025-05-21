@@ -4,7 +4,6 @@ Imports Flute.Http.Core
 Imports Flute.Http.Core.Message
 Imports Microsoft.VisualBasic.Imaging
 Imports Microsoft.VisualBasic.Net.Http
-Imports Microsoft.VisualBasic.Net.Protocols.ContentTypes
 Imports Rserver
 Imports SMRUCC.Rsharp.Interpreter.ExecuteEngine
 Imports SMRUCC.Rsharp.Interpreter.ExecuteEngine.ExpressionSymbols.Closure
@@ -54,11 +53,15 @@ Public Class Router
         End If
 
         Dim args As Dictionary(Of String, Object) = req.GetArguments
+
+        If TypeOf req Is HttpPOSTRequest AndAlso func.getArguments.Any(Function(a) a.Name = "upload") Then
+            args("upload") = DirectCast(req, HttpPOSTRequest).POSTData.files
+        End If
+
         Dim argSet As InvokeParameter() = args _
             .Select(Function(a, i) New InvokeParameter(a.Key, a.Value, i + 1)) _
             .ToArray
         Dim result As Object = func.Invoke(env, argSet)
-        Dim buffer As BufferObject
 
         If TypeOf result Is FileInfo Then
             ' make file download
@@ -67,52 +70,58 @@ Public Class Router
 
             Call response.SendFile(path)
         Else
-            If result Is Nothing Then
-                buffer = NullObject.nothing
-            ElseIf TypeOf result Is Message Then
-                buffer = New messageBuffer(DirectCast(result, Message))
-            ElseIf TypeOf result Is list Then
-                buffer = New listBuffer(result, env)
-            ElseIf TypeOf result Is dataframe Then
-                buffer = New dataframeBuffer(result, env)
-            ElseIf TypeOf result Is MemoryStream Then
-                buffer = New rawBuffer() With {.buffer = DirectCast(result, MemoryStream)}
-            ElseIf TypeOf result Is Byte() Then
-                buffer = New rawBuffer() With {.buffer = New MemoryStream(DirectCast(result, Byte()))}
-            ElseIf TypeOf result Is vector OrElse result.GetType.IsArray Then
-                ' processing of the string array?
-                If TypeOf result Is vector Then
-                    If DirectCast(result, vector).elementType Is RType.character Then
-                        buffer = New textBuffer(CLRVector.asCharacter(result).JoinBy(vbCrLf))
-                    Else
-                        buffer = vectorBuffer.CreateBuffer(result, env)
-                    End If
-                Else
-                    If TypeOf result Is String() Then
-                        buffer = New textBuffer(CLRVector.asCharacter(result).JoinBy(vbCrLf))
-                    ElseIf TypeOf result Is Char() Then
-                        buffer = New textBuffer(New String(DirectCast(result, Char())))
-                    Else
-                        buffer = vectorBuffer.FromArray(result, env)
-                    End If
-                End If
-            ElseIf TypeOf result Is Bitmap Then
-                buffer = New bitmapBuffer(DirectCast(result, Bitmap))
-            ElseIf TypeOf result Is Image Then
-                buffer = New bitmapBuffer(DirectCast(result, Image))
-            ElseIf TypeOf result Is String Then
-                buffer = New textBuffer(CStr(result))
-            Else
-                buffer = New textBuffer(CStr(jsonlite.toJSON(result, env, unicode_escape:=False)), "application/json")
-            End If
-
-            Call RCallbackMessage.SendHttpResponseMessage(buffer, req, response, debug:=False, showErr:=True)
+            Call handleResultBuffer(result, req, response, env)
         End If
 
         Call response.Flush()
 
         Return Nothing
     End Function
+
+    Private Sub handleResultBuffer(result As Object, req As HttpRequest, response As HttpResponse, env As Environment)
+        Dim buffer As BufferObject
+
+        If result Is Nothing Then
+            buffer = NullObject.nothing
+        ElseIf TypeOf result Is Message Then
+            buffer = New messageBuffer(DirectCast(result, Message))
+        ElseIf TypeOf result Is list Then
+            buffer = New listBuffer(result, env)
+        ElseIf TypeOf result Is dataframe Then
+            buffer = New dataframeBuffer(result, env)
+        ElseIf TypeOf result Is MemoryStream Then
+            buffer = New rawBuffer() With {.buffer = DirectCast(result, MemoryStream)}
+        ElseIf TypeOf result Is Byte() Then
+            buffer = New rawBuffer() With {.buffer = New MemoryStream(DirectCast(result, Byte()))}
+        ElseIf TypeOf result Is vector OrElse result.GetType.IsArray Then
+            ' processing of the string array?
+            If TypeOf result Is vector Then
+                If DirectCast(result, vector).elementType Is RType.character Then
+                    buffer = New textBuffer(CLRVector.asCharacter(result).JoinBy(vbCrLf))
+                Else
+                    buffer = vectorBuffer.CreateBuffer(result, env)
+                End If
+            Else
+                If TypeOf result Is String() Then
+                    buffer = New textBuffer(CLRVector.asCharacter(result).JoinBy(vbCrLf))
+                ElseIf TypeOf result Is Char() Then
+                    buffer = New textBuffer(New String(DirectCast(result, Char())))
+                Else
+                    buffer = vectorBuffer.FromArray(result, env)
+                End If
+            End If
+        ElseIf TypeOf result Is Bitmap Then
+            buffer = New bitmapBuffer(DirectCast(result, Bitmap))
+        ElseIf TypeOf result Is Image Then
+            buffer = New bitmapBuffer(DirectCast(result, Image))
+        ElseIf TypeOf result Is String Then
+            buffer = New textBuffer(CStr(result))
+        Else
+            buffer = New textBuffer(CStr(jsonlite.toJSON(result, env, unicode_escape:=False)), "application/json")
+        End If
+
+        Call RCallbackMessage.SendHttpResponseMessage(buffer, req, response, debug:=False, showErr:=True)
+    End Sub
 
     ''' <summary>
     ''' parse a closure expression as a router 
