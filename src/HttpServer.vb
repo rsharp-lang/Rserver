@@ -1,56 +1,56 @@
 ﻿#Region "Microsoft.VisualBasic::9c9d957d9da6111d1e9444c51404bf3d, win32_desktop\src\Rstudio\Rserver\src\HttpServer.vb"
 
-    ' Author:
-    ' 
-    '       asuka (amethyst.asuka@gcmodeller.org)
-    '       xie (genetics@smrucc.org)
-    '       xieguigang (xie.guigang@live.com)
-    ' 
-    ' Copyright (c) 2018 GPL3 Licensed
-    ' 
-    ' 
-    ' GNU GENERAL PUBLIC LICENSE (GPL3)
-    ' 
-    ' 
-    ' This program is free software: you can redistribute it and/or modify
-    ' it under the terms of the GNU General Public License as published by
-    ' the Free Software Foundation, either version 3 of the License, or
-    ' (at your option) any later version.
-    ' 
-    ' This program is distributed in the hope that it will be useful,
-    ' but WITHOUT ANY WARRANTY; without even the implied warranty of
-    ' MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    ' GNU General Public License for more details.
-    ' 
-    ' You should have received a copy of the GNU General Public License
-    ' along with this program. If not, see <http://www.gnu.org/licenses/>.
+' Author:
+' 
+'       asuka (amethyst.asuka@gcmodeller.org)
+'       xie (genetics@smrucc.org)
+'       xieguigang (xie.guigang@live.com)
+' 
+' Copyright (c) 2018 GPL3 Licensed
+' 
+' 
+' GNU GENERAL PUBLIC LICENSE (GPL3)
+' 
+' 
+' This program is free software: you can redistribute it and/or modify
+' it under the terms of the GNU General Public License as published by
+' the Free Software Foundation, either version 3 of the License, or
+' (at your option) any later version.
+' 
+' This program is distributed in the hope that it will be useful,
+' but WITHOUT ANY WARRANTY; without even the implied warranty of
+' MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+' GNU General Public License for more details.
+' 
+' You should have received a copy of the GNU General Public License
+' along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 
 
-    ' /********************************************************************************/
+' /********************************************************************************/
 
-    ' Summaries:
-
-
-    ' Code Statistics:
-
-    '   Total Lines: 193
-    '    Code Lines: 122 (63.21%)
-    ' Comment Lines: 49 (25.39%)
-    '    - Xml Docs: 97.96%
-    ' 
-    '   Blank Lines: 22 (11.40%)
-    '     File Size: 6.86 KB
+' Summaries:
 
 
-    ' Module HttpServer
-    ' 
-    '     Function: createDriver, customResponseHeader, getHeaders, getHttpRaw, getUrl
-    '               httpMethod, parseUrl, serve, urlList
-    ' 
-    '     Sub: httpError, pushDownload
-    ' 
-    ' /********************************************************************************/
+' Code Statistics:
+
+'   Total Lines: 193
+'    Code Lines: 122 (63.21%)
+' Comment Lines: 49 (25.39%)
+'    - Xml Docs: 97.96%
+' 
+'   Blank Lines: 22 (11.40%)
+'     File Size: 6.86 KB
+
+
+' Module HttpServer
+' 
+'     Function: createDriver, customResponseHeader, getHeaders, getHttpRaw, getUrl
+'               httpMethod, parseUrl, serve, urlList
+' 
+'     Sub: httpError, pushDownload
+' 
+' /********************************************************************************/
 
 #End Region
 
@@ -67,8 +67,10 @@ Imports SMRUCC.Rsharp.Interpreter
 Imports SMRUCC.Rsharp.Runtime
 Imports SMRUCC.Rsharp.Runtime.Components
 Imports SMRUCC.Rsharp.Runtime.Components.Interface
+Imports SMRUCC.Rsharp.Runtime.Internal.Invokes
 Imports SMRUCC.Rsharp.Runtime.Internal.Object
 Imports SMRUCC.Rsharp.Runtime.Interop
+Imports SMRUCC.Rsharp.Runtime.Vectorization
 
 <Package("http", Category:=APICategories.UtilityTools)>
 Public Module HttpServer
@@ -84,8 +86,20 @@ Public Module HttpServer
     End Function
 
     <ExportAPI("http_fsdir")>
-    Public Function createFsDir(wwwroot As String) As WebFileSystemListener
-        Return New WebFileSystemListener With {.fs = New FileSystem(wwwroot)}
+    <RApiReturn(GetType(WebFileSystemListener))>
+    Public Function createFsDir(<RListObjectArgument> wwwroot As Object, Optional env As Environment = Nothing) As Object
+        Dim dirs = base.c(wwwroot, env)
+
+        If TypeOf dirs Is Message Then
+            Return dirs
+        End If
+
+        Dim folders As FileSystem() = CLRVector _
+            .asCharacter(dirs) _
+            .Select(Function(dir) New FileSystem(dir)) _
+            .ToArray
+
+        Return New WebFileSystemListener With {.fs = folders}
     End Function
 
     <ExportAPI("http_exists")>
