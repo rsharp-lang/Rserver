@@ -96,9 +96,18 @@ Module RouterFunction
         Return router.HandleRequest(req, response, env)
     End Function
 
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="router"></param>
+    ''' <param name="url"></param>
+    ''' <param name="method">the http method: get/post</param>
+    ''' <param name="handler"></param>
+    ''' <param name="env"></param>
+    ''' <returns></returns>
     <ExportAPI("register_url")>
     Public Function register_url(router As Router, url As String, method As String, handler As DeclareNewFunction, Optional env As Environment = Nothing) As Object
-        Call router.SetUrl(url, handler)
+        Call router.SetUrl(url, method, handler)
         Return router
     End Function
 
