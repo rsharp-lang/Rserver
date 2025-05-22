@@ -3,6 +3,7 @@ Imports System.Runtime.CompilerServices
 Imports Flute.Http.Core
 Imports Flute.Http.Core.Message
 Imports Microsoft.VisualBasic.Imaging
+Imports Microsoft.VisualBasic.Linq
 Imports Microsoft.VisualBasic.Net.Http
 Imports Rserver
 Imports SMRUCC.Rsharp.Interpreter.ExecuteEngine
@@ -22,7 +23,8 @@ Imports SMRUCC.Rsharp.Runtime.Vectorization
 ''' </remarks>
 Public Class Router
 
-    ReadOnly urls As New Dictionary(Of String, DeclareNewFunction)
+    ReadOnly gets As New Dictionary(Of String, DeclareNewFunction)
+    ReadOnly posts As New Dictionary(Of String, DeclareNewFunction)
 
     ''' <summary>
     ''' Check of the url is existed inside current router?
@@ -32,17 +34,22 @@ Public Class Router
     ''' 
     <MethodImpl(MethodImplOptions.AggressiveInlining)>
     Public Function CheckUrl(url As String) As Boolean
-        Return urls.ContainsKey(url)
+        Return gets.ContainsKey(url) OrElse posts.ContainsKey(url)
     End Function
 
     <MethodImpl(MethodImplOptions.AggressiveInlining)>
-    Public Sub SetUrl(url As String, handler As DeclareNewFunction)
-        urls(url) = handler
+    Public Sub SetUrl(url As String, method As String, handler As DeclareNewFunction)
+        Select Case Strings.LCase(method)
+            Case "get" : gets(url) = handler
+            Case "post" : posts(url) = handler
+            Case Else
+                Throw New NotImplementedException(method)
+        End Select
     End Sub
 
     Public Function HandleRequest(req As HttpRequest, response As HttpResponse, env As Environment) As Object
-        Dim url = req.URL
-        Dim func = urls.TryGetValue(url.path)
+        Dim url As URL = req.URL
+        Dim func = If(TypeOf req Is HttpPOSTRequest, posts, gets).TryGetValue(url.path)
         Dim writeLine = env.WriteLineHandler
 
         Call writeLine($" -> [{url.path}]")
@@ -129,14 +136,21 @@ Public Class Router
     ''' <summary>
     ''' parse a closure expression as a router 
     ''' </summary>
-    ''' <param name="exp"></param>
+    ''' <param name="exp">
+    ''' should be a closure expression that contains a list of function declaration
+    ''' </param>
+    ''' <param name="env">
+    ''' the environment that used to parse the closure expression
+    ''' </param>
     ''' <param name="env"></param>
     ''' <returns></returns>
     Public Shared Function Parse(exp As Expression, env As Environment) As Object
         Dim funcs As Expression()
 
         If TypeOf exp Is ClosureExpression Then
-            funcs = DirectCast(exp, ClosureExpression).EnumerateCodeLines.ToArray
+            funcs = DirectCast(exp, ClosureExpression) _
+                .EnumerateCodeLines _
+                .ToArray
         Else
             Return 500
         End If
@@ -146,9 +160,12 @@ Public Class Router
         For Each line As Expression In funcs
             If TypeOf line Is DeclareNewFunction Then
                 Dim func As DeclareNewFunction = line
+                Dim method As String = func _
+                    .GetAttributeValue("http") _
+                    .DefaultFirst("get")
 
                 For Each url As String In func.GetAttributeValue("url")
-                    urls.urls(url) = func
+                    Call urls.SetUrl(url, method, func)
                 Next
             End If
         Next
