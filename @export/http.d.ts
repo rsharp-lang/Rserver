@@ -31,8 +31,9 @@ declare namespace http {
    */
    function http_exists(www: object, req: object): boolean;
    /**
+     * @param env default value Is ``null``.
    */
-   function http_fsdir(wwwroot: string): object;
+   function http_fsdir(wwwroot: any, env?: object): object;
    /**
      * @param silent default value Is ``true``.
    */
