@@ -64,8 +64,9 @@ Public Class Router
         If TypeOf req Is HttpPOSTRequest AndAlso func.getArguments.Any(Function(a) a.Name = "upload") Then
             Dim files = DirectCast(req, HttpPOSTRequest).POSTData.files
             Dim file = files.TryGetValue("File")
+            Dim firstFile = If(files.IsNullOrEmpty, Nothing, files.First.Value.First)
 
-            args("upload") = If(file.IsNullOrEmpty, If(files.IsNullOrEmpty, Nothing, files.First.Value.First), file.First)
+            args("upload") = If(file.IsNullOrEmpty, firstFile, file.First)
         End If
 
         Dim argSet As InvokeParameter() = args _
