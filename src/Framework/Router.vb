@@ -8,6 +8,7 @@ Imports Microsoft.VisualBasic.Net.Http
 Imports Rserver
 Imports SMRUCC.Rsharp.Interpreter.ExecuteEngine
 Imports SMRUCC.Rsharp.Interpreter.ExecuteEngine.ExpressionSymbols.Closure
+Imports SMRUCC.Rsharp.Interpreter.ExecuteEngine.ExpressionSymbols.Operators
 Imports SMRUCC.Rsharp.Runtime
 Imports SMRUCC.Rsharp.Runtime.Components
 Imports SMRUCC.Rsharp.Runtime.Internal.[Object]
@@ -81,6 +82,10 @@ Public Class Router
 
             Call response.SendFile(path)
         Else
+            If TypeOf result Is ReturnValue Then
+                result = DirectCast(result, ReturnValue).Evaluate(env)
+            End If
+
             Call handleResultBuffer(result, req, response, env)
         End If
 
