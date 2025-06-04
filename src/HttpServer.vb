@@ -226,8 +226,12 @@ Public Module HttpServer
         If env.globalEnvironment.debugMode Then
             Call New Thread(
                 Sub()
-                    Call Thread.Sleep(3000)
-                    Call Process.Start(New ProcessStartInfo With {.FileName = localUrl, .UseShellExecute = True})
+                    Try
+                        ' ignore error for debug on linux platform
+                        Call Thread.Sleep(3000)
+                        Call Process.Start(New ProcessStartInfo With {.FileName = localUrl, .UseShellExecute = True})
+                    Catch ex As Exception
+                    End Try
                 End Sub) _
                          _
             .Start()
