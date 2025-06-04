@@ -91,8 +91,8 @@ Module RouterFunction
     ''' <returns></returns>
     <ExportAPI("handle")>
     Public Function handle(router As Router, req As HttpRequest, response As HttpResponse, Optional env As Environment = Nothing) As Object
-        Dim println = env.WriteLineHandler
-        println("start to handle http request!")
+        ' Dim println = env.WriteLineHandler
+        ' println("start to handle http request!")
         Return router.HandleRequest(req, response, env)
     End Function
 

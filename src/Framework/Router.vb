@@ -53,7 +53,7 @@ Public Class Router
         Dim func = If(TypeOf req Is HttpPOSTRequest, posts, gets).TryGetValue(url.path)
         Dim writeLine = env.WriteLineHandler
 
-        Call writeLine($" -> [{url.path}]")
+        Call writeLine($"[{If(TypeOf req Is HttpPOSTRequest, "POST", "GET")}] {url.path}")
 
         If func Is Nothing Then
             ' 404
