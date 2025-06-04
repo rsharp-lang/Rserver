@@ -222,7 +222,7 @@ Public Module HttpServer
 
         Dim httpPort As Integer = If(port <= 0, Rnd() * 30000, port)
         Dim socket As HttpSocket = driver _
-            .SetJSONParser(AddressOf Rweb.ParseJSON) _
+            .SetJSONParser(Function(json) Rweb.ParseJSON(json, rawClr:=False)) _
             .GetSocket(httpPort)
         Dim localUrl$ = $"http://localhost:{httpPort}/"
 
