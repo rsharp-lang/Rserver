@@ -63,6 +63,7 @@ Imports Microsoft.VisualBasic.CommandLine.Reflection
 Imports Microsoft.VisualBasic.ComponentModel.Collection
 Imports Microsoft.VisualBasic.Net.Http
 Imports Microsoft.VisualBasic.Scripting.MetaData
+Imports Rserver
 Imports SMRUCC.Rsharp.Interpreter
 Imports SMRUCC.Rsharp.Runtime
 Imports SMRUCC.Rsharp.Runtime.Components
@@ -220,7 +221,9 @@ Public Module HttpServer
                           Optional env As Environment = Nothing) As Integer
 
         Dim httpPort As Integer = If(port <= 0, Rnd() * 30000, port)
-        Dim socket As HttpSocket = driver.GetSocket(httpPort)
+        Dim socket As HttpSocket = driver _
+            .SetJSONParser(AddressOf Rweb.ParseJSON) _
+            .GetSocket(httpPort)
         Dim localUrl$ = $"http://localhost:{httpPort}/"
 
         If env.globalEnvironment.debugMode Then
