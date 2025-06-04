@@ -227,7 +227,7 @@ Public Module HttpServer
             Call New Thread(
                 Sub()
                     Call Thread.Sleep(3000)
-                    Call Process.Start(localUrl)
+                    Call Process.Start(New ProcessStartInfo With {.FileName = localUrl, .UseShellExecute = True})
                 End Sub) _
                          _
             .Start()
